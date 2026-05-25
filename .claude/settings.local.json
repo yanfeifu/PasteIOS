@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(swift --version)",
+      "Bash(xcodebuild -project /Users/qiyueliuhuo/Projects/PasteIOS/PasteIOS.xcodeproj -scheme PasteIOS -configuration Debug build)",
+      "Read(//Applications/Xcode.app/**)",
+      "Bash(mdfind \"kMDItemKind == 'Application'\")",
+      "Bash(sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer)",
+      "Bash(DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project /Users/qiyueliuhuo/Projects/PasteIOS/PasteIOS.xcodeproj -scheme PasteIOS -configuration Debug build)",
+      "Bash(plutil -lint /Users/qiyueliuhuo/Projects/PasteIOS/PasteIOS.xcodeproj/project.pbxproj)",
+      "Bash(xxd)",
+      "Bash(DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild *)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -version)",
+      "Bash(swiftc -typecheck -parse-as-library App/PasteIOSApp.swift Model/ClipboardItem.swift Model/ClipboardStore.swift Service/ClipboardMonitor.swift Service/HotkeyManager.swift Service/PasteManager.swift ViewModel/ClipboardListViewModel.swift ViewModel/SettingsViewModel.swift View/StatusBar/StatusBarController.swift View/Popover/ClipboardPopoverView.swift View/Popover/ClipboardRowView.swift View/Popover/SearchBarView.swift View/Settings/SettingsView.swift Util/String+Truncate.swift Util/Date+Format.swift -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -target arm64-apple-macosx14.0 -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -framework SwiftUI -framework AppKit -framework CoreData -framework Combine -framework CryptoKit)",
+      "Bash(grep -v \"^$\")",
+      "Bash(xxd /Users/qiyueliuhuo/Projects/PasteIOS/PasteIOS.xcodeproj/project.pbxproj)",
+      "Bash(xxd /tmp/test_minimal/TestApp.xcodeproj/project.pbxproj)",
+      "Bash(awk '/Begin PBXFileReference/,/End PBXFileReference/' project.pbxproj)",
+      "Bash(awk *)",
+      "Bash(ruby /tmp/gen_compact_pbxproj.rb)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 /tmp/verify_content.py)",
+      "Bash(ruby /tmp/step_test.rb)",
+      "Bash(ruby /tmp/step2_test.rb)",
+      "Bash(ruby /tmp/minimal_add.rb)",
+      "Bash(ruby -e ' *)",
+      "Bash(mv /Users/qiyueliuhuo/Projects/PasteIOS/.claude.bak /Users/qiyueliuhuo/Projects/PasteIOS/.claude)",
+      "Bash(rm -rf /tmp/test_minimal /tmp/pasteios_pbx_backup.pbxproj /tmp/gen_*.rb /tmp/final_pbxproj*.txt /tmp/pbxproj_content.txt /tmp/pbxproj_output.txt /tmp/incremental_all.rb /tmp/build_*.rb /tmp/scale_up.rb /tmp/step*.rb /tmp/modify_template.rb /tmp/minimal_add.rb /tmp/expand_pbxproj.rb /tmp/verify_content.py)",
+      "Bash(open *)",
+      "Bash(sudo xcode-select *)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project /Users/qiyueliuhuo/Projects/PasteIOS/PasteIOS.xcodeproj -scheme PasteIOS -configuration Debug build)",
+      "Bash(brew list *)",
+      "Bash(xcodegen generate *)",
+      "Bash(log show *)",
+      "Bash(pkill PasteIOS)",
+      "Bash(git init *)",
+      "Bash(git -C /Users/qiyueliuhuo/Projects/PasteIOS add .gitignore CLAUDE.md session.md project.yml PasteIOS.xcodeproj/project.pbxproj PasteIOS.xcodeproj/project.xcworkspace PasteIOS/)",
+      "Bash(git -C /Users/qiyueliuhuo/Projects/PasteIOS status)",
+      "Bash(git *)"
+    ]
+  }
+}
