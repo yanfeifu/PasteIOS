@@ -1,0 +1,452 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		020AF33B496377BA3C565A7C /* ClipboardPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F77A3CEE7827544DFCB429 /* ClipboardPopoverView.swift */; };
+		0E3B3C95E393A92D31679452 /* String+Truncate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85247DDAD5D0B7070C100E3A /* String+Truncate.swift */; };
+		22AAC46DB94803A73D4BE201 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A612055670F0FB6CD146E0 /* StatusBarController.swift */; };
+		3763DDC631604A20F0C3E7E3 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1591A25A2BFD9B3CBCA695DE /* SearchBarView.swift */; };
+		3AF8902CE7A2BD3140570487 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2507BED5765A2CF94EB77099 /* HotkeyManager.swift */; };
+		41ED8DD9819F863C78F22D7E /* PasteIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71171170A9BD7F4D27D40E18 /* PasteIOSApp.swift */; };
+		528BC307950104433E7B8975 /* ClipboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76641F8199CA6DECFE872169 /* ClipboardItem.swift */; };
+		66CE3826F90A473A80A9FF05 /* ClipboardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222EF9850E381B9805E2210C /* ClipboardStore.swift */; };
+		74E06E9168C0293A50AAD9ED /* ClipboardMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA6D77FF5AA55AB8A703D42 /* ClipboardMonitor.swift */; };
+		8E87DC0F079DBA0F7E227493 /* Date+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786F3CE36DCBB402A7AA384 /* Date+Format.swift */; };
+		907345F811A8A996C5AA21A2 /* ClipboardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BE7ADEA9BE96E55BD6A459 /* ClipboardRowView.swift */; };
+		924E189ACB44EA1C21C0B660 /* ClipboardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBFCCD6A986C849C295A5CA /* ClipboardListViewModel.swift */; };
+		AC20906E66739A335352A629 /* PasteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EC1232F1DEA3560B712F2C /* PasteManager.swift */; };
+		BEAF715B4565831D37109990 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B61CFF3ECF6DCBBE19B0112 /* SettingsView.swift */; };
+		DB310F720D7EA719093B25C5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE9A6D0CB15C543C5B35108 /* SettingsViewModel.swift */; };
+		E738A3B7C6D92FF6FF808D24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7838ECC691049F53AABCF109 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1591A25A2BFD9B3CBCA695DE /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		222EF9850E381B9805E2210C /* ClipboardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardStore.swift; sourceTree = "<group>"; };
+		2507BED5765A2CF94EB77099 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		2B61CFF3ECF6DCBBE19B0112 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3786F3CE36DCBB402A7AA384 /* Date+Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Format.swift"; sourceTree = "<group>"; };
+		4BE9A6D0CB15C543C5B35108 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		71171170A9BD7F4D27D40E18 /* PasteIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteIOSApp.swift; sourceTree = "<group>"; };
+		75EB6E70EEAE68F8385CF882 /* PasteIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PasteIOS.entitlements; sourceTree = "<group>"; };
+		76641F8199CA6DECFE872169 /* ClipboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardItem.swift; sourceTree = "<group>"; };
+		7838ECC691049F53AABCF109 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		82BE7ADEA9BE96E55BD6A459 /* ClipboardRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardRowView.swift; sourceTree = "<group>"; };
+		85247DDAD5D0B7070C100E3A /* String+Truncate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Truncate.swift"; sourceTree = "<group>"; };
+		89F77A3CEE7827544DFCB429 /* ClipboardPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardPopoverView.swift; sourceTree = "<group>"; };
+		9CBFCCD6A986C849C295A5CA /* ClipboardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardListViewModel.swift; sourceTree = "<group>"; };
+		ADA6D77FF5AA55AB8A703D42 /* ClipboardMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardMonitor.swift; sourceTree = "<group>"; };
+		C5A612055670F0FB6CD146E0 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		D23850446E0E27AEB4C3377E /* PasteIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PasteIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9EC1232F1DEA3560B712F2C /* PasteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteManager.swift; sourceTree = "<group>"; };
+		E19B20F0E4807CE865E1B61F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0893EB2547C7F1361D977FDA /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				3786F3CE36DCBB402A7AA384 /* Date+Format.swift */,
+				85247DDAD5D0B7070C100E3A /* String+Truncate.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		2B0FEDDC36BD26FDCCFE7D6F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7838ECC691049F53AABCF109 /* Assets.xcassets */,
+				E19B20F0E4807CE865E1B61F /* Info.plist */,
+				75EB6E70EEAE68F8385CF882 /* PasteIOS.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		32702BCE67C533BD42DF18D5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2B61CFF3ECF6DCBBE19B0112 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		3E6E43EA887486A373F115A0 /* Popover */ = {
+			isa = PBXGroup;
+			children = (
+				89F77A3CEE7827544DFCB429 /* ClipboardPopoverView.swift */,
+				82BE7ADEA9BE96E55BD6A459 /* ClipboardRowView.swift */,
+				1591A25A2BFD9B3CBCA695DE /* SearchBarView.swift */,
+			);
+			path = Popover;
+			sourceTree = "<group>";
+		};
+		4E8CB25C7B643023668AFA4A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D23850446E0E27AEB4C3377E /* PasteIOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		635F9D31B621BA1B759330D5 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				ADA6D77FF5AA55AB8A703D42 /* ClipboardMonitor.swift */,
+				2507BED5765A2CF94EB77099 /* HotkeyManager.swift */,
+				D9EC1232F1DEA3560B712F2C /* PasteManager.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		7662F452388BFBBE950C856F /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				C5A612055670F0FB6CD146E0 /* StatusBarController.swift */,
+			);
+			path = StatusBar;
+			sourceTree = "<group>";
+		};
+		87CA529E4F42F28E922DA269 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				71171170A9BD7F4D27D40E18 /* PasteIOSApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		89B649F37B672F48021025D4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9CBFCCD6A986C849C295A5CA /* ClipboardListViewModel.swift */,
+				4BE9A6D0CB15C543C5B35108 /* SettingsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		98CCB1B9FCC25CC805242E93 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3E6E43EA887486A373F115A0 /* Popover */,
+				32702BCE67C533BD42DF18D5 /* Settings */,
+				7662F452388BFBBE950C856F /* StatusBar */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C56E5AED8F6074E76FFCBF61 = {
+			isa = PBXGroup;
+			children = (
+				E5D67C26297614C148E5B231 /* PasteIOS */,
+				4E8CB25C7B643023668AFA4A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E5D67C26297614C148E5B231 /* PasteIOS */ = {
+			isa = PBXGroup;
+			children = (
+				87CA529E4F42F28E922DA269 /* App */,
+				E95183D1E2CEC102A2DD2561 /* Model */,
+				2B0FEDDC36BD26FDCCFE7D6F /* Resources */,
+				635F9D31B621BA1B759330D5 /* Service */,
+				0893EB2547C7F1361D977FDA /* Util */,
+				98CCB1B9FCC25CC805242E93 /* View */,
+				89B649F37B672F48021025D4 /* ViewModel */,
+			);
+			path = PasteIOS;
+			sourceTree = "<group>";
+		};
+		E95183D1E2CEC102A2DD2561 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				76641F8199CA6DECFE872169 /* ClipboardItem.swift */,
+				222EF9850E381B9805E2210C /* ClipboardStore.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		71AEF1A53E2AB39860502985 /* PasteIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0698B621A9696B81DC58FBA /* Build configuration list for PBXNativeTarget "PasteIOS" */;
+			buildPhases = (
+				4852ACC263AD7363BCB0A40E /* Sources */,
+				B75E776BAC2D952E25C2B389 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PasteIOS;
+			packageProductDependencies = (
+			);
+			productName = PasteIOS;
+			productReference = D23850446E0E27AEB4C3377E /* PasteIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1051EF39B303B31E33D41062 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					71AEF1A53E2AB39860502985 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = D6764CA92EDB1F7C6F6C4053 /* Build configuration list for PBXProject "PasteIOS" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = C56E5AED8F6074E76FFCBF61;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 4E8CB25C7B643023668AFA4A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				71AEF1A53E2AB39860502985 /* PasteIOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B75E776BAC2D952E25C2B389 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E738A3B7C6D92FF6FF808D24 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4852ACC263AD7363BCB0A40E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				528BC307950104433E7B8975 /* ClipboardItem.swift in Sources */,
+				924E189ACB44EA1C21C0B660 /* ClipboardListViewModel.swift in Sources */,
+				74E06E9168C0293A50AAD9ED /* ClipboardMonitor.swift in Sources */,
+				020AF33B496377BA3C565A7C /* ClipboardPopoverView.swift in Sources */,
+				907345F811A8A996C5AA21A2 /* ClipboardRowView.swift in Sources */,
+				66CE3826F90A473A80A9FF05 /* ClipboardStore.swift in Sources */,
+				8E87DC0F079DBA0F7E227493 /* Date+Format.swift in Sources */,
+				3AF8902CE7A2BD3140570487 /* HotkeyManager.swift in Sources */,
+				41ED8DD9819F863C78F22D7E /* PasteIOSApp.swift in Sources */,
+				AC20906E66739A335352A629 /* PasteManager.swift in Sources */,
+				3763DDC631604A20F0C3E7E3 /* SearchBarView.swift in Sources */,
+				BEAF715B4565831D37109990 /* SettingsView.swift in Sources */,
+				DB310F720D7EA719093B25C5 /* SettingsViewModel.swift in Sources */,
+				22AAC46DB94803A73D4BE201 /* StatusBarController.swift in Sources */,
+				0E3B3C95E393A92D31679452 /* String+Truncate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6B2A7DB3C3AA7207033636A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		73C10049853D2043A65962C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		940BF3C011DBB4120BE8F831 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PasteIOS/Resources/PasteIOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PasteIOS/Resources/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSAccessibilityUsageDescription = "PasteIOS needs accessibility access to simulate paste";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pasteios.app;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+		B6884C155EAD8FF529D22389 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PasteIOS/Resources/PasteIOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PasteIOS/Resources/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSAccessibilityUsageDescription = "PasteIOS needs accessibility access to simulate paste";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pasteios.app;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D0698B621A9696B81DC58FBA /* Build configuration list for PBXNativeTarget "PasteIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6884C155EAD8FF529D22389 /* Debug */,
+				940BF3C011DBB4120BE8F831 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D6764CA92EDB1F7C6F6C4053 /* Build configuration list for PBXProject "PasteIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B2A7DB3C3AA7207033636A7 /* Debug */,
+				73C10049853D2043A65962C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1051EF39B303B31E33D41062 /* Project object */;
+}
