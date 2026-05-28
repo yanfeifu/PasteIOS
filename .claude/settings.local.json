@@ -36,7 +36,31 @@
       "Bash(git init *)",
       "Bash(git -C /Users/qiyueliuhuo/Projects/PasteIOS add .gitignore CLAUDE.md session.md project.yml PasteIOS.xcodeproj/project.pbxproj PasteIOS.xcodeproj/project.xcworkspace PasteIOS/)",
       "Bash(git -C /Users/qiyueliuhuo/Projects/PasteIOS status)",
-      "Bash(git *)"
+      "Bash(git *)",
+      "Bash(gh auth *)",
+      "Bash(gh repo *)",
+      "Bash(/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project /Users/qiyueliuhuo/Projects/PasteIOS/PasteIOS.xcodeproj -scheme PasteIOS -configuration Release build)",
+      "Bash(cp -r /Users/qiyueliuhuo/Library/Developer/Xcode/DerivedData/PasteIOS-edaasbmsrzpdwuemtreqhpcemkzg/Build/Products/Release/PasteIOS.app /tmp/PasteIOS.app)",
+      "Read(//private/tmp/**)",
+      "Bash(zip -r PasteIOS-v1.0.zip PasteIOS.app -x \"*.DS_Store\")",
+      "Bash(gh release *)",
+      "Bash(mkdir -p /tmp/PasteIOS-dmg)",
+      "Bash(cp -r /Users/qiyueliuhuo/Library/Developer/Xcode/DerivedData/PasteIOS-edaasbmsrzpdwuemtreqhpcemkzg/Build/Products/Release/PasteIOS.app /tmp/PasteIOS-dmg/)",
+      "Bash(ln -s /Applications /tmp/PasteIOS-dmg/Applications)",
+      "Bash(hdiutil create *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(rm -rf /private/tmp/claude-501/-Users-qiyueliuhuo-Projects-PasteIOS)",
+      "Read(//tmp/**)",
+      "Bash(kill 88655)",
+      "Bash(killall PasteIOS)",
+      "Bash(xcrun xcodebuild *)",
+      "Bash(export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer)",
+      "Bash(xcodebuild -project PasteIOS.xcodeproj -scheme PasteIOS -configuration Debug build)",
+      "Bash(xcode-select -p)",
+      "Bash(swift build *)",
+      "Bash(pkill -x PasteIOS)",
+      "Bash(osascript -e ' *)",
+      "Bash(screencapture -w /tmp/pasteios_popover.png)"
     ]
   }
 }
