@@ -1,6 +1,7 @@
 import CoreData
 import Combine
 import CryptoKit
+import AppKit
 
 final class ClipboardStore: ObservableObject {
     static let shared = ClipboardStore()
@@ -22,6 +23,8 @@ final class ClipboardStore: ObservableObject {
         try? FileManager.default.createDirectory(at: storeURL, withIntermediateDirectories: true)
 
         let storeDescription = NSPersistentStoreDescription(url: storeURL.appendingPathComponent("PasteIOS.sqlite"))
+        storeDescription.shouldMigrateStoreAutomatically = true
+        storeDescription.shouldInferMappingModelAutomatically = true
         container.persistentStoreDescriptions = [storeDescription]
 
         container.loadPersistentStores { _, error in
@@ -35,14 +38,19 @@ final class ClipboardStore: ObservableObject {
         cleanupIfNeeded()
     }
 
+    // MARK: - Add items
+
     func addItem(content: String) {
+        addTextItem(content: content)
+    }
+
+    func addTextItem(content: String) {
         let trimmed = content.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
-        let hash = contentHash(trimmed)
+        let hash = sha256(Data(trimmed.utf8))
 
-        // dedup: skip if same as most recent item
-        if let last = items.first, last.contentHash == hash {
+        if let last = items.first, last.contentHash == hash, last.contentType == ClipboardContentType.text.rawValue {
             last.timestamp = Date()
             save()
             return
@@ -54,11 +62,68 @@ final class ClipboardStore: ObservableObject {
         item.timestamp = Date()
         item.contentHash = hash
         item.isPinned = false
+        item.contentType = ClipboardContentType.text.rawValue
 
         save()
         fetchItems()
         cleanupIfNeeded()
     }
+
+    func addImageItem(data: Data) {
+        guard let image = NSImage(data: data) else { return }
+        let thumbnailData = resizeImage(image, maxDimension: 300) ?? data
+        let hash = sha256(thumbnailData)
+
+        if let last = items.first, last.contentHash == hash, last.contentType == ClipboardContentType.image.rawValue {
+            last.timestamp = Date()
+            save()
+            return
+        }
+
+        let item = ClipboardItem(context: container.viewContext)
+        item.id = UUID()
+        item.content = ""
+        item.timestamp = Date()
+        item.contentHash = hash
+        item.isPinned = false
+        item.contentType = ClipboardContentType.image.rawValue
+        item.imageData = thumbnailData
+
+        save()
+        fetchItems()
+        cleanupIfNeeded()
+    }
+
+    func addFileItem(urls: [URL]) {
+        let fileURLs = urls.filter { $0.isFileURL }
+        guard !fileURLs.isEmpty else { return }
+
+        let names = fileURLs.map { $0.lastPathComponent }
+        let hashSource = fileURLs.map(\.absoluteString).sorted().joined()
+        let hash = sha256(Data(hashSource.utf8))
+
+        if let last = items.first, last.contentHash == hash, last.contentType == ClipboardContentType.file.rawValue {
+            last.timestamp = Date()
+            save()
+            return
+        }
+
+        // store one item per batch of files
+        let item = ClipboardItem(context: container.viewContext)
+        item.id = UUID()
+        item.content = names.joined(separator: ", ")
+        item.timestamp = Date()
+        item.contentHash = hash
+        item.isPinned = false
+        item.contentType = ClipboardContentType.file.rawValue
+        item.fileName = names.first
+
+        save()
+        fetchItems()
+        cleanupIfNeeded()
+    }
+
+    // MARK: - Delete
 
     func deleteItem(_ item: ClipboardItem) {
         container.viewContext.delete(item)
@@ -68,18 +133,40 @@ final class ClipboardStore: ObservableObject {
 
     func deleteAll() {
         let pinned = items.filter { $0.isPinned }
+
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClipboardItem")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         _ = try? container.viewContext.execute(deleteRequest)
 
-        // re-add pinned items
+        // re-add pinned items preserving their type
         for item in pinned {
-            addItem(content: item.content)
+            switch item.contentTypeEnum {
+            case .text:
+                addTextItem(content: item.content)
+            case .image:
+                if let data = item.imageData {
+                    addImageItem(data: data)
+                }
+            case .file:
+                if let name = item.fileName {
+                    // reconstruct file item from stored data
+                    let restored = ClipboardItem(context: container.viewContext)
+                    restored.id = UUID()
+                    restored.content = item.content
+                    restored.timestamp = Date()
+                    restored.contentHash = sha256(Data(item.contentHash.utf8))
+                    restored.isPinned = true
+                    restored.contentType = ClipboardContentType.file.rawValue
+                    restored.fileName = name
+                }
+            }
         }
 
         save()
         fetchItems()
     }
+
+    // MARK: - Pin
 
     func pinItem(_ item: ClipboardItem) {
         item.isPinned.toggle()
@@ -87,10 +174,14 @@ final class ClipboardStore: ObservableObject {
         fetchItems()
     }
 
+    // MARK: - Persistence
+
     func save() {
         guard container.viewContext.hasChanges else { return }
         try? container.viewContext.save()
     }
+
+    // MARK: - Private
 
     private func fetchItems() {
         let request = NSFetchRequest<ClipboardItem>(entityName: "ClipboardItem")
@@ -115,9 +206,38 @@ final class ClipboardStore: ObservableObject {
         }
     }
 
-    private func contentHash(_ text: String) -> String {
-        let data = Data(text.utf8)
+    private func sha256(_ data: Data) -> String {
         let hash = SHA256.hash(data: data)
         return hash.compactMap { String(format: "%02x", $0) }.joined()
+    }
+
+    private func resizeImage(_ image: NSImage, maxDimension: CGFloat) -> Data? {
+        let size = image.size
+        guard size.width > 0, size.height > 0 else { return nil }
+
+        let maxSide = max(size.width, size.height)
+        guard maxSide > maxDimension else {
+            return image.pngData
+        }
+
+        let scale = maxDimension / maxSide
+        let newSize = NSSize(width: size.width * scale, height: size.height * scale)
+
+        let resized = NSImage(size: newSize)
+        resized.lockFocus()
+        image.draw(in: NSRect(origin: .zero, size: newSize),
+                   from: NSRect(origin: .zero, size: size),
+                   operation: .copy, fraction: 1.0)
+        resized.unlockFocus()
+
+        return resized.pngData
+    }
+}
+
+private extension NSImage {
+    var pngData: Data? {
+        guard let tiff = tiffRepresentation,
+              let bitmap = NSBitmapImageRep(data: tiff) else { return nil }
+        return bitmap.representation(using: .png, properties: [:])
     }
 }

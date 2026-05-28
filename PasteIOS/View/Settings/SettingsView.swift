@@ -62,7 +62,7 @@ struct SettingsView: View {
             Text("PasteIOS")
                 .font(.title2)
 
-            Text("版本 1.0")
+            Text("版本 1.1")
                 .font(.caption)
                 .foregroundColor(.secondary)
 

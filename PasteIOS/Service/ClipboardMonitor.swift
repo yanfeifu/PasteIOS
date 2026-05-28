@@ -31,12 +31,28 @@ final class ClipboardMonitor: ObservableObject {
         guard pb.changeCount != lastChangeCount else { return }
         lastChangeCount = pb.changeCount
 
-        guard let string = pb.string(forType: .string)?.trimmingCharacters(in: .whitespacesAndNewlines),
-              !string.isEmpty else { return }
-
-        // skip if popover is shown (user is interacting with history)
         guard !StatusBarController.shared.isPopoverShown else { return }
 
-        store.addItem(content: string)
+        // 1. check for image
+        let imageTypes: [NSPasteboard.PasteboardType] = [.png, .tiff]
+        if let matchedType = pb.availableType(from: imageTypes),
+           let data = pb.data(forType: matchedType) {
+            store.addImageItem(data: data)
+            return
+        }
+
+        // 2. check for file URLs
+        if let urls = pb.readObjects(forClasses: [NSURL.self],
+                                     options: [.urlReadingFileURLsOnly: true]) as? [URL],
+           !urls.isEmpty {
+            store.addFileItem(urls: urls)
+            return
+        }
+
+        // 3. check for text
+        if let string = pb.string(forType: .string)?.trimmingCharacters(in: .whitespacesAndNewlines),
+           !string.isEmpty {
+            store.addItem(content: string)
+        }
     }
 }

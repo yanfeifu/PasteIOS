@@ -3,6 +3,52 @@ import AppKit
 final class PasteManager {
     static let shared = PasteManager()
 
+    func copyToClipboard(item: ClipboardItem) {
+        let pb = NSPasteboard.general
+        pb.clearContents()
+
+        switch item.contentTypeEnum {
+        case .text:
+            pb.setString(item.content, forType: .string)
+        case .image:
+            if let data = item.imageData {
+                pb.setData(data, forType: .png)
+            }
+        case .file:
+            if !item.content.isEmpty {
+                let names = item.content.components(separatedBy: ", ")
+                let urls = names.compactMap { name -> URL? in
+                    // try to reconstruct file URL from recent file items
+                    // search common locations
+                    let searchPaths: [String] = [
+                        NSHomeDirectory() + "/Desktop",
+                        NSHomeDirectory() + "/Downloads",
+                        NSHomeDirectory() + "/Documents",
+                    ]
+                    for dir in searchPaths {
+                        let url = URL(fileURLWithPath: dir).appendingPathComponent(name)
+                        if FileManager.default.fileExists(atPath: url.path) {
+                            return url
+                        }
+                    }
+                    return nil
+                }
+                if !urls.isEmpty {
+                    pb.writeObjects(urls as [NSURL])
+                }
+            }
+        }
+    }
+
+    func copyAndPaste(item: ClipboardItem) {
+        copyToClipboard(item: item)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            self.simulatePaste()
+        }
+    }
+
+    // legacy support
     func copyToClipboard(_ text: String) {
         let pb = NSPasteboard.general
         pb.clearContents()
@@ -12,7 +58,6 @@ final class PasteManager {
     func copyAndPaste(_ text: String) {
         copyToClipboard(text)
 
-        // brief delay to ensure pasteboard is updated before pasting
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             self.simulatePaste()
         }

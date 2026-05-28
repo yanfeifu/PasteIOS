@@ -1,5 +1,11 @@
 import CoreData
 
+enum ClipboardContentType: String {
+    case text
+    case image
+    case file
+}
+
 @objc(ClipboardItem)
 final class ClipboardItem: NSManagedObject {
     @NSManaged var id: UUID
@@ -7,6 +13,13 @@ final class ClipboardItem: NSManagedObject {
     @NSManaged var timestamp: Date
     @NSManaged var contentHash: String
     @NSManaged var isPinned: Bool
+    @NSManaged var contentType: String
+    @NSManaged var imageData: Data?
+    @NSManaged var fileName: String?
+
+    var contentTypeEnum: ClipboardContentType {
+        ClipboardContentType(rawValue: contentType) ?? .text
+    }
 }
 
 extension ClipboardItem: Identifiable {
@@ -24,6 +37,7 @@ extension ClipboardItem: Identifiable {
         contentAttr.name = "content"
         contentAttr.attributeType = .stringAttributeType
         contentAttr.isOptional = false
+        contentAttr.defaultValue = ""
 
         let timestampAttr = NSAttributeDescription()
         timestampAttr.name = "timestamp"
@@ -41,7 +55,27 @@ extension ClipboardItem: Identifiable {
         pinAttr.isOptional = false
         pinAttr.defaultValue = NSNumber(value: false)
 
-        entity.properties = [idAttr, contentAttr, timestampAttr, hashAttr, pinAttr]
+        let typeAttr = NSAttributeDescription()
+        typeAttr.name = "contentType"
+        typeAttr.attributeType = .stringAttributeType
+        typeAttr.isOptional = false
+        typeAttr.defaultValue = ClipboardContentType.text.rawValue
+
+        let imageAttr = NSAttributeDescription()
+        imageAttr.name = "imageData"
+        imageAttr.attributeType = .binaryDataAttributeType
+        imageAttr.isOptional = true
+        imageAttr.allowsExternalBinaryDataStorage = true
+
+        let fileNameAttr = NSAttributeDescription()
+        fileNameAttr.name = "fileName"
+        fileNameAttr.attributeType = .stringAttributeType
+        fileNameAttr.isOptional = true
+
+        entity.properties = [
+            idAttr, contentAttr, timestampAttr, hashAttr, pinAttr,
+            typeAttr, imageAttr, fileNameAttr,
+        ]
         return entity
     }
 }

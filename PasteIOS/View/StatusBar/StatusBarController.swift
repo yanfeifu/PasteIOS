@@ -32,9 +32,11 @@ final class StatusBarController: NSObject, NSPopoverDelegate {
         popover.contentSize = NSSize(width: 360, height: 480)
         popover.behavior = .transient
         popover.delegate = self
-        popover.contentViewController = NSHostingController(
+        let hostingController = NSHostingController(
             rootView: ClipboardPopoverView()
         )
+        hostingController.view.clipsToBounds = false
+        popover.contentViewController = hostingController
     }
 
     @objc func togglePopover() {

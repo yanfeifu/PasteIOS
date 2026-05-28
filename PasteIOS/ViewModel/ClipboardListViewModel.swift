@@ -22,14 +22,13 @@ final class ClipboardListViewModel: ObservableObject {
     }
 
     func copyItem(_ item: ClipboardItem) {
-        PasteManager.shared.copyToClipboard(item.content)
-        // bump timestamp so it moves to top
+        PasteManager.shared.copyToClipboard(item: item)
         item.timestamp = Date()
         store.save()
     }
 
     func copyAndPaste(_ item: ClipboardItem) {
-        PasteManager.shared.copyAndPaste(item.content)
+        PasteManager.shared.copyAndPaste(item: item)
         item.timestamp = Date()
         store.save()
     }

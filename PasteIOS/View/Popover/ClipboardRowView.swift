@@ -8,26 +8,11 @@ struct ClipboardRowView: View {
     var onPin: ((ClipboardItem) -> Void)?
 
     @State private var isHovered = false
+    @State private var isHoveringThumbnail = false
 
     var body: some View {
         HStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text(item.content.truncated(limit: 60))
-                    .font(.system(size: 13))
-                    .lineLimit(1)
-                    .foregroundColor(.primary)
-
-                HStack(spacing: 4) {
-                    if item.isPinned {
-                        Image(systemName: "pin.fill")
-                            .font(.system(size: 8))
-                            .foregroundColor(.orange)
-                    }
-                    Text(item.timestamp.relativeDisplay)
-                        .font(.system(size: 10))
-                        .foregroundColor(.secondary)
-                }
-            }
+            contentPreview
 
             Spacer()
 
@@ -50,6 +35,7 @@ struct ClipboardRowView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
+        .frame(minHeight: 36)
         .contentShape(Rectangle())
         .onHover { isHovered = $0 }
         .contextMenu {
@@ -62,6 +48,130 @@ struct ClipboardRowView: View {
         }
     }
 
+    @ViewBuilder
+    private var contentPreview: some View {
+        switch item.contentTypeEnum {
+        case .text:
+            textPreview
+        case .image:
+            imagePreview
+        case .file:
+            filePreview
+        }
+    }
+
+    private var textPreview: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(item.content.truncated(limit: 60))
+                .font(.system(size: 13))
+                .lineLimit(1)
+                .foregroundColor(.primary)
+
+            HStack(spacing: 4) {
+                if item.isPinned {
+                    Image(systemName: "pin.fill")
+                        .font(.system(size: 8))
+                        .foregroundColor(.orange)
+                }
+                Text(item.timestamp.relativeDisplay)
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+
+    private var imagePreview: some View {
+        HStack(spacing: 8) {
+            thumbnailView
+                .onHover { hovering in
+                    isHoveringThumbnail = hovering
+                }
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text("图片")
+                    .font(.system(size: 13))
+                    .foregroundColor(.primary)
+
+                HStack(spacing: 4) {
+                    if item.isPinned {
+                        Image(systemName: "pin.fill")
+                            .font(.system(size: 8))
+                            .foregroundColor(.orange)
+                    }
+                    Text(item.timestamp.relativeDisplay)
+                        .font(.system(size: 10))
+                        .foregroundColor(.secondary)
+                }
+            }
+
+            Spacer()
+        }
+        .overlay(alignment: .topLeading) {
+            if isHoveringThumbnail, let data = item.imageData, let nsImage = NSImage(data: data) {
+                ImagePreviewPopover(nsImage: nsImage)
+                    .offset(x: 48, y: -8)
+            }
+        }
+    }
+
+    private var thumbnailView: some View {
+        Group {
+            if let data = item.imageData, let nsImage = NSImage(data: data) {
+                Image(nsImage: nsImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 40, height: 28)
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
+            } else {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color.secondary.opacity(0.2))
+                    .frame(width: 40, height: 28)
+                    .overlay {
+                        Image(systemName: "photo")
+                            .font(.system(size: 12))
+                            .foregroundColor(.secondary)
+                    }
+            }
+        }
+    }
+
+    private var filePreview: some View {
+        HStack(spacing: 8) {
+            Group {
+                if let name = item.fileName {
+                    Image(nsImage: NSWorkspace.shared.icon(forFile: name))
+                        .resizable()
+                        .frame(width: 28, height: 28)
+                } else {
+                    Image(systemName: "doc")
+                        .font(.system(size: 16))
+                        .foregroundColor(.secondary)
+                        .frame(width: 28, height: 28)
+                }
+            }
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(item.content.truncated(limit: 50))
+                    .font(.system(size: 13))
+                    .lineLimit(1)
+                    .foregroundColor(.primary)
+
+                HStack(spacing: 4) {
+                    if item.isPinned {
+                        Image(systemName: "pin.fill")
+                            .font(.system(size: 8))
+                            .foregroundColor(.orange)
+                    }
+                    Text(item.timestamp.relativeDisplay)
+                        .font(.system(size: 10))
+                        .foregroundColor(.secondary)
+                }
+            }
+
+            Spacer()
+        }
+    }
+
     private func actionButton(icon: String, help: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: icon)
@@ -70,5 +180,22 @@ struct ClipboardRowView: View {
         }
         .buttonStyle(.plain)
         .help(help)
+    }
+}
+
+// MARK: - Image hover preview
+
+private struct ImagePreviewPopover: View {
+    let nsImage: NSImage
+
+    var body: some View {
+        Image(nsImage: nsImage)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(maxWidth: 200, maxHeight: 200)
+            .padding(4)
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .shadow(color: .black.opacity(0.2), radius: 12, y: 4)
     }
 }

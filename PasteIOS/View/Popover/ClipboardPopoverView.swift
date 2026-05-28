@@ -48,7 +48,7 @@ struct ClipboardPopoverView: View {
             Text("暂无剪贴板历史")
                 .font(.system(size: 13))
                 .foregroundColor(.secondary)
-            Text("复制文本后自动出现在这里")
+            Text("复制文本、图片或文件后自动出现在这里")
                 .font(.system(size: 11))
                 .foregroundColor(.secondary.opacity(0.6))
         }
@@ -79,6 +79,14 @@ struct ClipboardPopoverView: View {
             .buttonStyle(.plain)
             .foregroundColor(.secondary)
             .help("设置")
+
+            Button(action: { NSApp.terminate(nil) }) {
+                Image(systemName: "power")
+                    .font(.system(size: 12))
+            }
+            .buttonStyle(.plain)
+            .foregroundColor(.secondary)
+            .help("退出")
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
