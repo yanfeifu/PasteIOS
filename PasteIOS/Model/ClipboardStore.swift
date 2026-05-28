@@ -40,11 +40,11 @@ final class ClipboardStore: ObservableObject {
 
     // MARK: - Add items
 
-    func addItem(content: String) {
-        addTextItem(content: content)
+    func addItem(content: String, sourceAppBundleId: String? = nil, sourceAppName: String? = nil) {
+        addTextItem(content: content, sourceAppBundleId: sourceAppBundleId, sourceAppName: sourceAppName)
     }
 
-    func addTextItem(content: String) {
+    func addTextItem(content: String, sourceAppBundleId: String? = nil, sourceAppName: String? = nil) {
         let trimmed = content.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
@@ -52,6 +52,8 @@ final class ClipboardStore: ObservableObject {
 
         if let last = items.first, last.contentHash == hash, last.contentType == ClipboardContentType.text.rawValue {
             last.timestamp = Date()
+            last.sourceAppBundleId = sourceAppBundleId
+            last.sourceAppName = sourceAppName
             save()
             return
         }
@@ -63,19 +65,23 @@ final class ClipboardStore: ObservableObject {
         item.contentHash = hash
         item.isPinned = false
         item.contentType = ClipboardContentType.text.rawValue
+        item.sourceAppBundleId = sourceAppBundleId
+        item.sourceAppName = sourceAppName
 
         save()
         fetchItems()
         cleanupIfNeeded()
     }
 
-    func addImageItem(data: Data) {
+    func addImageItem(data: Data, sourceAppBundleId: String? = nil, sourceAppName: String? = nil) {
         guard let image = NSImage(data: data) else { return }
         let thumbnailData = resizeImage(image, maxDimension: 300) ?? data
         let hash = sha256(thumbnailData)
 
         if let last = items.first, last.contentHash == hash, last.contentType == ClipboardContentType.image.rawValue {
             last.timestamp = Date()
+            last.sourceAppBundleId = sourceAppBundleId
+            last.sourceAppName = sourceAppName
             save()
             return
         }
@@ -88,13 +94,15 @@ final class ClipboardStore: ObservableObject {
         item.isPinned = false
         item.contentType = ClipboardContentType.image.rawValue
         item.imageData = thumbnailData
+        item.sourceAppBundleId = sourceAppBundleId
+        item.sourceAppName = sourceAppName
 
         save()
         fetchItems()
         cleanupIfNeeded()
     }
 
-    func addFileItem(urls: [URL]) {
+    func addFileItem(urls: [URL], sourceAppBundleId: String? = nil, sourceAppName: String? = nil) {
         let fileURLs = urls.filter { $0.isFileURL }
         guard !fileURLs.isEmpty else { return }
 
@@ -104,6 +112,8 @@ final class ClipboardStore: ObservableObject {
 
         if let last = items.first, last.contentHash == hash, last.contentType == ClipboardContentType.file.rawValue {
             last.timestamp = Date()
+            last.sourceAppBundleId = sourceAppBundleId
+            last.sourceAppName = sourceAppName
             save()
             return
         }
@@ -117,6 +127,8 @@ final class ClipboardStore: ObservableObject {
         item.isPinned = false
         item.contentType = ClipboardContentType.file.rawValue
         item.fileName = names.first
+        item.sourceAppBundleId = sourceAppBundleId
+        item.sourceAppName = sourceAppName
 
         save()
         fetchItems()
@@ -128,7 +140,7 @@ final class ClipboardStore: ObservableObject {
     func deleteItem(_ item: ClipboardItem) {
         container.viewContext.delete(item)
         save()
-        fetchItems()
+        items.removeAll { $0.id == item.id }
     }
 
     func deleteAll() {
@@ -158,6 +170,8 @@ final class ClipboardStore: ObservableObject {
                     restored.isPinned = true
                     restored.contentType = ClipboardContentType.file.rawValue
                     restored.fileName = name
+                    restored.sourceAppBundleId = item.sourceAppBundleId
+                    restored.sourceAppName = item.sourceAppName
                 }
             }
         }

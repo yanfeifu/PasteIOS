@@ -72,14 +72,6 @@ struct ClipboardPopoverView: View {
 
             Spacer()
 
-            Button(action: openSettings) {
-                Image(systemName: "gearshape")
-                    .font(.system(size: 12))
-            }
-            .buttonStyle(.plain)
-            .foregroundColor(.secondary)
-            .help("设置")
-
             Button(action: { NSApp.terminate(nil) }) {
                 Image(systemName: "power")
                     .font(.system(size: 12))
@@ -90,13 +82,5 @@ struct ClipboardPopoverView: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-    }
-
-    private func openSettings() {
-        if #available(macOS 14.0, *) {
-            NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-        } else {
-            NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
-        }
     }
 }

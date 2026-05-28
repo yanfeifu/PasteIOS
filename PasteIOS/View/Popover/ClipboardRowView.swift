@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 struct ClipboardRowView: View {
     @ObservedObject var item: ClipboardItem
@@ -9,9 +10,12 @@ struct ClipboardRowView: View {
 
     @State private var isHovered = false
     @State private var isHoveringThumbnail = false
+    @State private var isHoveringText = false
 
     var body: some View {
         HStack(spacing: 0) {
+            sourceAppIconView
+
             contentPreview
 
             Spacer()
@@ -78,6 +82,12 @@ struct ClipboardRowView: View {
                     .foregroundColor(.secondary)
             }
         }
+        .onHover { hovering in
+            isHoveringText = hovering
+        }
+        .popover(isPresented: $isHoveringText, arrowEdge: .leading) {
+            TextPreviewPopover(text: item.content)
+        }
     }
 
     private var imagePreview: some View {
@@ -85,6 +95,11 @@ struct ClipboardRowView: View {
             thumbnailView
                 .onHover { hovering in
                     isHoveringThumbnail = hovering
+                }
+                .popover(isPresented: $isHoveringThumbnail, arrowEdge: .leading) {
+                    if let data = item.imageData, let nsImage = NSImage(data: data) {
+                        ImagePreviewPopover(nsImage: nsImage)
+                    }
                 }
 
             VStack(alignment: .leading, spacing: 2) {
@@ -105,12 +120,6 @@ struct ClipboardRowView: View {
             }
 
             Spacer()
-        }
-        .overlay(alignment: .topLeading) {
-            if isHoveringThumbnail, let data = item.imageData, let nsImage = NSImage(data: data) {
-                ImagePreviewPopover(nsImage: nsImage)
-                    .offset(x: 48, y: -8)
-            }
         }
     }
 
@@ -181,6 +190,54 @@ struct ClipboardRowView: View {
         .buttonStyle(.plain)
         .help(help)
     }
+
+    @ViewBuilder
+    private var sourceAppIconView: some View {
+        if let bundleId = item.sourceAppBundleId,
+           let icon = AppIconCache.icon(for: bundleId) {
+            Image(nsImage: icon)
+                .resizable()
+                .frame(width: 16, height: 16)
+                .padding(.trailing, 8)
+                .help(item.sourceAppName ?? bundleId)
+        }
+    }
+}
+
+// MARK: - App Icon Cache
+
+private enum AppIconCache {
+    private static let cache = NSCache<NSString, NSImage>()
+
+    static func icon(for bundleId: String) -> NSImage? {
+        let key = bundleId as NSString
+        if let cached = cache.object(forKey: key) {
+            return cached
+        }
+        guard let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId) else {
+            return nil
+        }
+        let icon = NSWorkspace.shared.icon(forFile: url.path)
+        cache.setObject(icon, forKey: key)
+        return icon
+    }
+}
+
+// MARK: - Text hover preview
+
+private struct TextPreviewPopover: View {
+    let text: String
+
+    var body: some View {
+        Text(text)
+            .font(.system(size: 13))
+            .textSelection(.enabled)
+            .frame(maxWidth: 400, alignment: .leading)
+            .padding(12)
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .shadow(color: .black.opacity(0.2), radius: 12, y: 4)
+    }
 }
 
 // MARK: - Image hover preview
@@ -192,8 +249,8 @@ private struct ImagePreviewPopover: View {
         Image(nsImage: nsImage)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(maxWidth: 200, maxHeight: 200)
-            .padding(4)
+            .frame(maxWidth: 800, maxHeight: 800)
+            .padding(8)
             .background(.regularMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .shadow(color: .black.opacity(0.2), radius: 12, y: 4)

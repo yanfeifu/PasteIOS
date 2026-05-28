@@ -16,6 +16,8 @@ final class ClipboardItem: NSManagedObject {
     @NSManaged var contentType: String
     @NSManaged var imageData: Data?
     @NSManaged var fileName: String?
+    @NSManaged var sourceAppBundleId: String?
+    @NSManaged var sourceAppName: String?
 
     var contentTypeEnum: ClipboardContentType {
         ClipboardContentType(rawValue: contentType) ?? .text
@@ -72,9 +74,20 @@ extension ClipboardItem: Identifiable {
         fileNameAttr.attributeType = .stringAttributeType
         fileNameAttr.isOptional = true
 
+        let sourceBundleAttr = NSAttributeDescription()
+        sourceBundleAttr.name = "sourceAppBundleId"
+        sourceBundleAttr.attributeType = .stringAttributeType
+        sourceBundleAttr.isOptional = true
+
+        let sourceNameAttr = NSAttributeDescription()
+        sourceNameAttr.name = "sourceAppName"
+        sourceNameAttr.attributeType = .stringAttributeType
+        sourceNameAttr.isOptional = true
+
         entity.properties = [
             idAttr, contentAttr, timestampAttr, hashAttr, pinAttr,
             typeAttr, imageAttr, fileNameAttr,
+            sourceBundleAttr, sourceNameAttr,
         ]
         return entity
     }

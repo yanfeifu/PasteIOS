@@ -33,11 +33,15 @@ final class ClipboardMonitor: ObservableObject {
 
         guard !StatusBarController.shared.isPopoverShown else { return }
 
+        let frontmostApp = NSWorkspace.shared.frontmostApplication
+        let sourceBundleId = frontmostApp?.bundleIdentifier
+        let sourceAppName = frontmostApp?.localizedName
+
         // 1. check for image
         let imageTypes: [NSPasteboard.PasteboardType] = [.png, .tiff]
         if let matchedType = pb.availableType(from: imageTypes),
            let data = pb.data(forType: matchedType) {
-            store.addImageItem(data: data)
+            store.addImageItem(data: data, sourceAppBundleId: sourceBundleId, sourceAppName: sourceAppName)
             return
         }
 
@@ -45,14 +49,14 @@ final class ClipboardMonitor: ObservableObject {
         if let urls = pb.readObjects(forClasses: [NSURL.self],
                                      options: [.urlReadingFileURLsOnly: true]) as? [URL],
            !urls.isEmpty {
-            store.addFileItem(urls: urls)
+            store.addFileItem(urls: urls, sourceAppBundleId: sourceBundleId, sourceAppName: sourceAppName)
             return
         }
 
         // 3. check for text
         if let string = pb.string(forType: .string)?.trimmingCharacters(in: .whitespacesAndNewlines),
            !string.isEmpty {
-            store.addItem(content: string)
+            store.addItem(content: string, sourceAppBundleId: sourceBundleId, sourceAppName: sourceAppName)
         }
     }
 }
